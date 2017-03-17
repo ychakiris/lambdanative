@@ -260,6 +260,17 @@ package_make()
   asserterror $? "$pkg_make failed"
 }
 
+package_make_fake_static_lib()
+{
+    echo "==> creating fake static library $1.a"
+    if [ "X$1" = "X" ]; then
+        echo "ERROR: no fake library specified"
+        return 1
+    fi
+    `$SYS_AR cr $SYS_PREFIX/lib/$1.a`
+    touch $SYS_PREFIX/lib/$1.a
+}
+
 package_cleanup()
 {
   echo " => cleaning up.."
